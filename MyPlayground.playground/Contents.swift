@@ -31,5 +31,83 @@ import UIKit
  A: 물량 채우게 기본 75mm 짜리 보내주세요 -> 1번 라인 호출
  B: 판터 정면을 못 뚫어요 좀 쎈거 줘요 -> 2번 라인 호출
  C: 양키들 포 약해서 못 써먹겠다 더 쎈거 내놔 -> 3번 라인 호출
- 
  */
+
+protocol Tank {
+    func line()
+    func gun()
+    func attack()
+}
+
+enum kindOfTank {
+    case basic, advanced, firefly
+}
+
+class basic: Tank {
+    func line() {
+        print("75mm sherman moving")
+    }
+    func gun() {
+        print("using 75mm gun")
+    }
+    func attack() {
+        print("cannot penetrate panther")
+    }
+}
+
+class advanced: Tank {
+    func line() {
+        print("76mm sherman roll out")
+    }
+    func gun() {
+        print("using 76mm gun")
+    }
+    func attack() {
+        print("effective on panther, but still cannot penetrate tiger")
+    }
+}
+
+class firefly: Tank {
+    func line() {
+        print("move up, lads")
+    }
+    func gun() {
+        print("using 16pounder")
+    }
+    func attack() {
+        print("effective on tiger")
+    }
+}
+
+class TankFactory {
+    func makeTank(_ kind: kindOfTank) -> Tank {
+        switch kind {
+        case .basic:
+            return basic()
+        case .advanced:
+            return advanced()
+        case .firefly:
+            return firefly()
+        }
+    }
+}
+
+func main() {
+    let tankFactory = TankFactory()
+    let tank1 = tankFactory.makeTank(.basic)
+    tank1.line()
+    tank1.gun()
+    tank1.attack()
+    print("")
+    let tank2 = tankFactory.makeTank(.advanced)
+    tank2.line()
+    tank2.gun()
+    tank2.attack()
+    print("")
+    let tank3 = tankFactory.makeTank(.firefly)
+    tank3.line()
+    tank3.gun()
+    tank3.attack()
+}
+
+main()
